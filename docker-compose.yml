@@ -14,12 +14,15 @@ services:
     container_name: chatbot
     depends_on:
       - ollama
-    ports:
-      - "8000:8000"
     environment:
       - OLLAMA_HOST=http://ollama:11434
     networks:
       - ollama-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chatbot.rule=Host(`chatbot.devscluster.com`)"
+      - "traefik.http.routers.chatbot.entrypoints=web"
+      - "traefik.http.services.chatbot.loadbalancer.server.port=8000"
 
 networks:
   ollama-net:
