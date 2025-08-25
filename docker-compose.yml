@@ -18,6 +18,7 @@ services:
       - OLLAMA_HOST=http://ollama:11434
     networks:
       - ollama-net
+      - web
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.chatbot.rule=Host(`chatbot.devscluster.com`)"
@@ -27,6 +28,9 @@ services:
 networks:
   ollama-net:
     driver: bridge
+  web:
+    external: true
+  
 
 volumes:
   ollama_data:
