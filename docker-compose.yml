@@ -7,7 +7,7 @@ services:
     networks:
       - ollama-net
     volumes:
-      - ollama_data:/root/.ollama  # persistencia de modelos
+      - ollama_data:/root/.ollama
 
   chatbot:
     build: .
@@ -26,11 +26,10 @@ services:
       - "traefik.http.services.chatbot.loadbalancer.server.port=8000"
 
 networks:
-  ollama-net:
-    driver: bridge
   web:
     external: true
-  
+  ollama-net:
+    driver: bridge
 
 volumes:
   ollama_data:
