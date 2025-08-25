@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    networks:
+      - ollama-net
+    volumes:
+      - ollama_data:/root/.ollama  # persistencia de modelos
+
+  chatbot:
+    build: .
+    container_name: chatbot
+    depends_on:
+      - ollama
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    networks:
+      - ollama-net
+
+networks:
+  ollama-net:
+    driver: bridge
+
+volumes:
+  ollama_data:
