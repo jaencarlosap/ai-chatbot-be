@@ -119,6 +119,11 @@ def chat(req: ChatRequest):
     return {"respuesta": response}
 
 
+@app.get("/")
+def welcome():
+    return {"message": "¡Bienvenido al chatbot!"}
+
+
 # -------------------------
 # Thread de monitorización
 # -------------------------
